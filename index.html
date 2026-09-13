@@ -7,22 +7,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Sora:wght@300;400;500;600&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
 <!-- Tích hợp Lenis cho Smooth Scroll chuẩn Awwwards -->
 <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
 <style>
   :root {
-    --bg: #14100c; /* Tường phòng triển lãm về đêm — nâu than ấm, không phải đen thuần */
-    --surface: #1c1712; /* Mảng tường phụ, nhỉnh sáng hơn cho marquee/footer */
+    --bg: #14100c; 
+    --surface: #1c1712; 
     --wall: #211b14;
     --border: rgba(201,164,100,0.14);
-    --text: #f3ead9; /* Giấy chú thích bảo tàng */
+    --text: #f3ead9; 
     --muted: rgba(243,234,217,0.46);
-    --accent: #c9a464; /* Khung tranh mạ đồng */
+    --accent: #c9a464; 
     --frame: #c9a464;
-    --spot: rgba(255,232,196,0.9); /* Ánh đèn rọi tranh */
-    --serif: 'Playfair Display', serif; /* Hỗ trợ đầy đủ dấu tiếng Việt */
-    --sans: 'Sora', sans-serif; /* Hỗ trợ đầy đủ dấu tiếng Việt */
-    --body: 'Be Vietnam Pro', sans-serif; /* Font thiết kế riêng cho tiếng Việt */
+    --spot: rgba(255,232,196,0.9); 
+    --serif: 'Playfair Display', serif; 
+    --sans: 'Sora', sans-serif; 
+    --body: 'Be Vietnam Pro', sans-serif; 
     
-    /* Các đường cong gia tốc cực mượt để giả lập chuyển động vật lý */
     --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
     --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
     --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -35,7 +35,7 @@
   .lenis.lenis-smooth { scroll-behavior: auto !important; }
   .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
   .lenis.lenis-stopped { overflow: hidden; }
-  html.lenis-stopped { overflow: hidden; } /* Dự phòng khi Lenis không tải được */
+  html.lenis-stopped { overflow: hidden; } 
   .lenis.lenis-scrolling iframe { pointer-events: none; }
 
   body {
@@ -53,7 +53,6 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
-  /* Vệt sàn gỗ mảnh chạy dọc mép dưới màn hình — gợi sàn phòng triển lãm */
   .gallery-floor { position: fixed; left: 0; right: 0; bottom: 0; height: 3px; z-index: 40; pointer-events: none;
     background: linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent); opacity: 0.35; }
 
@@ -63,7 +62,6 @@
   .cursor-ring { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,0.4); border-radius: 50%; position: absolute; transform: translate(-50%, -50%); transition: width 0.5s var(--ease-out-expo), height 0.5s var(--ease-out-expo), border-color 0.3s, background 0.3s; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .cursor-text { font-family: var(--sans); font-size: 9px; letter-spacing: 0.15em; font-weight: 500; color: #000; opacity: 0; position: absolute; transform: scale(0.5); transition: opacity 0.4s, transform 0.4s var(--ease-out-expo); }
 
-  /* States */
   body.cursor-hover-link .cursor-ring { width: 50px; height: 50px; border-color: #fff; background: rgba(255,255,255,0.1); backdrop-filter: blur(2px); }
   body.cursor-hover-work .cursor-ring { width: 100px; height: 100px; background: #fff; border-color: #fff; mix-blend-mode: normal; }
   body.cursor-hover-work .cursor-dot { opacity: 0; }
@@ -76,7 +74,6 @@
     transition: transform 1.6s var(--ease-custom-curtain); transform-origin: top;
     will-change: transform;
   }
-  /* Khi loader trượt lên, tạo hiệu ứng kéo rèm sân khấu */
   .loader.hidden { transform: translateY(-100%); pointer-events: none; }
   
   .loader-content { 
@@ -84,13 +81,11 @@
     transition: opacity 0.8s var(--ease-out-quart), transform 0.8s var(--ease-out-quart); 
     will-change: transform, opacity;
   }
-  /* Tạo chuyển động trượt biến mất mượt mà cho các phần tử tải trước khi rèm kéo hẳn */
   .loader.out-active .loader-content { opacity: 0; transform: translateY(-40px); }
   
   .loader-label { font-family: var(--sans); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
   .loader-text { font-family: var(--serif); font-size: clamp(28px, 5vw, 42px); color: var(--text); font-style: italic; letter-spacing: -0.02em; }
   .loader-bar-wrap { width: 300px; height: 1px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; }
-  /* Custom transition mượt mà cho bề rộng thanh loading tăng vọt rồi ghìm lại tinh tế */
   .loader-bar { height: 100%; width: 0%; background: var(--text); transition: width 0.3s cubic-bezier(0.1, 0.8, 0.2, 1); }
 
   /* === NAVIGATION === */
@@ -99,15 +94,14 @@
   .nav-logo { font-family: var(--sans); font-size: 14px; font-weight: 500; letter-spacing: 0.05em; color: var(--text); text-decoration: none; text-transform: lowercase; }
   .nav-links { display: flex; align-items: center; gap: 10px; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
   
-  /* Magnetic wrappers */
   .magnetic { display: inline-block; padding: 10px 20px; cursor: none; }
-  .nav-links a { font-family: var(--sans); font-size: 12px; font-weight: 400; letter-spacing: 0.08em; color: #fff; text-decoration: none; text-transform: uppercase; position: relative; display: inline-block; pointer-events: none; }
+  .nav-links a { font-family: var(--sans); font-size: 12px; font-weight: 400; letter-spacing: 0.08em; color: #fff; text-decoration: none; text-transform: uppercase; position: relative; display: inline-block; pointer-events: auto; }
   .nav-links .magnetic:hover a { color: var(--accent); }
   
   .nav-cta-wrap { border: 1px solid rgba(255,255,255,0.2); border-radius: 100px; transition: background 0.4s, border-color 0.4s; overflow: hidden; position: relative; }
   .nav-cta-wrap::before { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: 100%; background: #fff; transition: transform 0.5s var(--ease-out-expo); border-radius: 50% 50% 0 0; }
   .nav-cta-wrap:hover::before { transform: translateY(-100%); border-radius: 0; }
-  .nav-cta-wrap a { color: #fff; mix-blend-mode: difference; z-index: 2; position: relative; pointer-events: none; }
+  .nav-cta-wrap a { color: #fff; mix-blend-mode: difference; z-index: 2; position: relative; pointer-events: auto; }
 
   /* === HERO SECTION === */
   .hero-wrapper { height: 100vh; width: 100%; position: relative; }
@@ -115,9 +109,8 @@
     height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 80px; 
     position: fixed; inset: 0; z-index: 0; transform-origin: center 80%; 
     will-change: transform, opacity;
-    opacity: 0; /* Bắt đầu bằng trạng thái ẩn để LERP kiểm soát hoàn toàn */
+    opacity: 0; 
   }
-  /* Đèn rọi từ trần chiếu xuống khu vực tiêu đề, như ánh đèn mở đầu phòng trưng bày */
   .hero::before { content: ''; position: absolute; top: -15%; left: 50%; width: 55%; height: 65%; transform: translateX(-50%);
     background: radial-gradient(ellipse at top, var(--spot), transparent 70%); opacity: 0.14; mix-blend-mode: screen; pointer-events: none; }
   
@@ -141,7 +134,6 @@
   .hero-desc { font-size: 16px; color: var(--muted); max-width: 400px; line-height: 1.6; font-weight: 300; }
   .hero-since { font-family: var(--sans); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(240,237,232,0.3); }
   
-  /* Scroll Indicator */
   .hero-scroll { position: absolute; bottom: 40px; right: 48px; opacity: 0; transition: opacity 1.5s var(--ease-out-expo) 1.2s; display: flex; align-items: center; gap: 16px; }
   .loaded .hero-scroll { opacity: 1; }
   .hero-scroll span { font-family: var(--sans); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); transform: rotate(-90deg); transform-origin: right center; }
@@ -149,7 +141,6 @@
   .scroll-line { width: 1px; height: 100%; background: #fff; transform: translateY(-100%); animation: scrollLine 2s var(--ease-in-out-expo) infinite; }
   @keyframes scrollLine { 0% { transform: translateY(-100%); } 50% { transform: translateY(0); } 100% { transform: translateY(100%); } }
 
-  /* === MAIN CONTENT LAYER === */
   .main-content { position: relative; z-index: 1; background: var(--bg); margin-top: 100vh; }
 
   /* === MARQUEE === */
@@ -159,7 +150,6 @@
   .marquee-item:hover { color: var(--text); }
   .marquee-dot { color: var(--border); font-style: normal; }
 
-  /* === SECTIONS === */
   section { padding: 180px 48px; }
   .section-label { font-family: var(--sans); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 100px; display: flex; align-items: center; gap: 16px; }
   .section-label span { font-size: 10px; opacity: 0.4; }
@@ -178,7 +168,6 @@
   .work-item { position: relative; overflow: hidden; background: var(--wall); height: 85vh; display: block; text-decoration: none; }
   .work-item:first-child { grid-column: 1 / -1; height: 100vh; }
 
-  /* Đèn rọi trần hắt xuống mặt tranh */
   .work-item::before {
     content: ''; position: absolute; top: -12%; left: 50%; width: 65%; height: 55%; transform: translateX(-50%);
     background: radial-gradient(ellipse at top, var(--spot), transparent 72%);
@@ -186,28 +175,31 @@
   }
   .work-item:hover::before { opacity: 0.28; }
   
-  /* Mask & Image Lerp Parallax — khung tranh mạ đồng, chừa mat rộng phía dưới cho bảng chú thích */
   .work-image-wrap { position: absolute; top: 26px; left: 26px; right: 26px; bottom: 84px; overflow: hidden; clip-path: inset(0 0 0 0);
     box-shadow: 0 0 0 1px var(--frame), 0 40px 70px -30px rgba(0,0,0,0.7);
-    transition: clip-path 1.2s var(--ease-out-expo); z-index: 1; }
+    transition: clip-path 1.2s var(--ease-out-expo); z-index: 1; background-color: #0a0a0a; }
   .work-item.reveal:not(.visible) .work-image-wrap { clip-path: inset(20% 10% 20% 10%); }
   
-  .work-visual { width: 100%; height: 130%; position: absolute; top: -15%; left: 0; background-size: cover; background-position: center; filter: brightness(0.7) contrast(1.1); transform: scale(1.1); transition: transform 1.5s var(--ease-out-expo), filter 0.8s; will-change: transform; }
+  /* Cập nhật style để tương thích tốt với hình ảnh thực tế (.jpg/.png) */
+  .work-visual { width: 100%; height: 130%; position: absolute; top: -15%; left: 0; 
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    filter: brightness(0.85) contrast(1.05); /* Tăng độ sáng chút ít so với bản cũ để ảnh rõ hơn */
+    transform: scale(1.1); transition: transform 1.5s var(--ease-out-expo), filter 0.8s; will-change: transform; }
   .work-item.reveal:not(.visible) .work-visual { transform: scale(1.4); filter: brightness(0.3); }
   
-  .work-item:hover .work-visual { filter: brightness(0.9) contrast(1.05); transform: scale(1.05) !important; }
+  .work-item:hover .work-visual { filter: brightness(1) contrast(1); transform: scale(1.05) !important; }
 
-  /* CGI Elements — nét màu như những vệt bút trên toan */
-  .cgi-element { position: absolute; mix-blend-mode: screen; filter: blur(40px); opacity: 0.6; transition: transform 2s var(--ease-out-expo); }
+  /* Ẩn các cgi-element cũ nếu dùng ảnh thực tế, hoặc có thể giữ lại để làm hiệu ứng blend đè lên ảnh.
+     Ở đây sẽ giữ lại nhưng mặc định ẩn, chỉ hiển thị nếu có truyền vào qua JS */
+  .cgi-element { position: absolute; mix-blend-mode: screen; filter: blur(40px); opacity: 0; transition: transform 2s var(--ease-out-expo); display: none; }
   .work-item:hover .cgi-element { transform: scale(1.2) rotate(15deg); opacity: 0.8; }
 
-  .work-overlay { position: absolute; top: 26px; left: 26px; right: 26px; bottom: 84px; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; pointer-events: none; z-index: 3; }
-  .work-name { font-family: var(--serif); font-size: clamp(20px, 2.2vw, 30px); font-weight: 500; font-style: italic; letter-spacing: -0.005em; line-height: 1.3; color: #fff; transform: translateY(20px); opacity: 0; transition: transform 0.6s var(--ease-out-expo) 0.1s, opacity 0.6s var(--ease-out-expo) 0.1s; }
+  .work-overlay { position: absolute; top: 26px; left: 26px; right: 26px; bottom: 84px; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; pointer-events: none; z-index: 3; }
+  .work-name { font-family: var(--serif); font-size: clamp(20px, 2.2vw, 30px); font-weight: 500; font-style: italic; letter-spacing: -0.005em; line-height: 1.3; color: #fff; transform: translateY(20px); opacity: 0; transition: transform 0.6s var(--ease-out-expo) 0.1s, opacity 0.6s var(--ease-out-expo) 0.1s; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
   .work-item:hover .work-name { transform: translateY(0); opacity: 1; }
-  .work-desc { font-family: var(--body); font-size: 14px; color: var(--muted); max-width: 380px; line-height: 1.5; margin-top: 12px; font-weight: 300; transform: translateY(20px); opacity: 0; transition: transform 0.6s var(--ease-out-expo) 0.15s, opacity 0.6s var(--ease-out-expo) 0.15s; }
+  .work-desc { font-family: var(--body); font-size: 14px; color: var(--muted); max-width: 380px; line-height: 1.5; margin-top: 12px; font-weight: 300; transform: translateY(20px); opacity: 0; transition: transform 0.6s var(--ease-out-expo) 0.15s, opacity 0.6s var(--ease-out-expo) 0.15s; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
   .work-item:hover .work-desc { transform: translateY(0); opacity: 1; }
 
-  /* Bảng chú thích bảo tàng — luôn hiển thị trong phần mat dưới khung */
   .work-plaque { position: absolute; left: 26px; right: 26px; bottom: 26px; height: 44px; z-index: 4;
     display: flex; align-items: baseline; justify-content: space-between; gap: 24px;
     border-top: 1px solid var(--border); padding-top: 14px; }
@@ -250,44 +242,10 @@
   .footer-socials a { font-size: 12px; color: rgba(240,237,232,0.4); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; font-family: var(--sans); transition: color 0.3s; }
   .footer-socials a:hover { color: var(--text); }
 
-  /* === INTERSECTION REVEALS === */
   .reveal { opacity: 0; transform: translateY(80px); transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo); will-change: transform, opacity; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
-
-  /* === MODAL SYSTEM === */
-  .modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(10,8,6,0.82); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 40px 24px; opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease-out-expo); }
-  .modal-overlay.active { opacity: 1; pointer-events: auto; }
-  .modal-panel { background: var(--wall); border: 1px solid var(--border); border-radius: 4px; width: 100%; max-width: 620px; max-height: 86vh; overflow-y: auto; padding: 56px 48px; position: relative; transform: translateY(30px) scale(0.98); transition: transform 0.5s var(--ease-out-expo); box-shadow: 0 60px 100px -40px rgba(0,0,0,0.6); }
-  .modal-overlay.active .modal-panel { transform: translateY(0) scale(1); }
-  .modal-panel.modal-wide { max-width: 920px; }
-  .modal-close { position: absolute; top: 24px; right: 24px; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: none; color: var(--text); font-size: 16px; cursor: pointer; transition: border-color 0.3s, color 0.3s; }
-  .modal-close:hover { border-color: var(--accent); color: var(--accent); }
-  .modal-eyebrow { font-family: var(--sans); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-  .modal-title { font-family: var(--serif); font-size: clamp(22px, 3vw, 32px); font-weight: 500; line-height: 1.35; margin-bottom: 12px; }
-  .modal-subtitle { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 36px; max-width: 460px; }
-  body.modal-open { overflow: hidden; }
-
-  /* Form */
-  .form-tabs { display: flex; gap: 8px; margin-bottom: 32px; border: 1px solid var(--border); border-radius: 100px; padding: 4px; width: fit-content; }
-  .form-tab { font-family: var(--sans); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; padding: 10px 20px; border-radius: 100px; background: none; border: none; color: var(--muted); cursor: pointer; transition: background 0.3s, color 0.3s; }
-  .form-tab.active { background: var(--accent); color: #14100c; }
-  .form-group { margin-bottom: 22px; }
-  .form-label { display: block; font-family: var(--sans); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-  .form-input, .form-select { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--body); font-size: 15px; padding: 14px 18px; border-radius: 2px; transition: border-color 0.3s; }
-  .form-input:focus, .form-select:focus { outline: none; border-color: var(--accent); }
-  .form-file { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-  .form-file-btn { font-family: var(--sans); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--border); padding: 12px 20px; border-radius: 2px; color: var(--muted); transition: border-color 0.3s, color 0.3s; white-space: nowrap; }
-  .form-file-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .form-file-name { font-size: 13px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .form-note { font-size: 12px; color: var(--muted); margin-top: 24px; display: flex; align-items: center; gap: 10px; }
-  .form-note::before { content: '●'; color: var(--accent); font-size: 8px; }
-  .btn-primary { width: 100%; font-family: var(--sans); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; background: var(--accent); color: #14100c; border: none; padding: 18px; border-radius: 2px; margin-top: 12px; transition: opacity 0.3s; }
-  .btn-primary:hover { opacity: 0.85; }
-  .form-success { display: none; text-align: center; padding: 40px 0; }
-  .form-success.active { display: block; }
-  .form-success-icon { width: 56px; height: 56px; border: 1px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 22px; color: var(--accent); }
 
   /* === PRICING (Không Gian III) === */
   .pricing-track { display: flex; flex-direction: column; gap: 90px; }
@@ -309,9 +267,15 @@
   .filter-select:focus { outline: none; border-color: var(--accent); }
   .artwork-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 140px; }
   .artwork-card { background: var(--wall); position: relative; overflow: hidden; text-decoration: none; display: block; border: none; text-align: left; padding: 0; width: 100%; font-family: inherit; color: inherit; }
-  .artwork-card-visual { height: 340px; position: relative; overflow: hidden; }
-  .artwork-card-visual .work-visual { transform: scale(1); filter: brightness(0.75) contrast(1.05); transition: transform 1.2s var(--ease-out-expo); }
-  .artwork-card:hover .artwork-card-visual .work-visual { transform: scale(1.06); }
+  .artwork-card-visual { height: 340px; position: relative; overflow: hidden; background-color: #0a0a0a; }
+  
+  /* Cập nhật style ảnh thẻ trong Khám phá */
+  .artwork-card-visual .work-visual { 
+    transform: scale(1); filter: brightness(0.9) contrast(1.05); transition: transform 1.2s var(--ease-out-expo), filter 0.8s; 
+    width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-size: cover; background-position: center;
+  }
+  .artwork-card:hover .artwork-card-visual .work-visual { transform: scale(1.06); filter: brightness(1) contrast(1.1); }
+  
   .artwork-card-tag { position: absolute; top: 16px; left: 16px; font-family: var(--sans); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(20,16,12,0.75); color: var(--accent); padding: 6px 12px; border-radius: 100px; z-index: 2; }
   .artwork-card-body { padding: 24px 26px 28px; }
   .artwork-card-title { font-family: var(--serif); font-size: 19px; font-weight: 500; font-style: italic; margin-bottom: 6px; line-height: 1.3; }
@@ -329,7 +293,86 @@
   .btn-outline { font-family: var(--sans); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--border); color: var(--text); background: none; padding: 12px 24px; border-radius: 100px; transition: border-color 0.3s, color 0.3s; white-space: nowrap; }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* === WORKSHOP (Không Gian V) === */
+  /* === VIRTUAL GALLERY (Không Gian VI) === */
+  .virtual-frame { border: 1px solid var(--border); padding: 56px 48px; position: relative; }
+  .virtual-theme-title { font-family: var(--serif); font-size: clamp(24px, 2.8vw, 36px); font-weight: 500; font-style: italic; margin-bottom: 12px; }
+  .virtual-theme-desc { font-size: 14px; color: var(--muted); max-width: 480px; line-height: 1.6; margin-bottom: 48px; }
+  .virtual-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .virtual-tile { position: relative; height: 220px; overflow: hidden; border: 1px solid var(--border); background-color: #0a0a0a; }
+  
+  /* Style cho ảnh trong Virtual Gallery */
+  .virtual-tile .work-visual { 
+    transform: scale(1); transition: transform 1.2s var(--ease-out-expo); 
+    width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-size: cover; background-position: center;
+  }
+  .virtual-tile:hover .work-visual { transform: scale(1.08); }
+  
+  .virtual-tile-label { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 16px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); }
+  .virtual-tile-artist { font-family: var(--sans); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+  .virtual-tile-name { font-family: var(--serif); font-size: 14px; font-style: italic; color: #fff; }
+
+  /* === MODAL SYSTEM === */
+  .modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(10,8,6,0.82); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 40px 24px; opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease-out-expo); }
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+  .modal-panel { background: var(--wall); border: 1px solid var(--border); border-radius: 4px; width: 100%; max-width: 620px; max-height: 86vh; overflow-y: auto; padding: 56px 48px; position: relative; transform: translateY(30px) scale(0.98); transition: transform 0.5s var(--ease-out-expo); box-shadow: 0 60px 100px -40px rgba(0,0,0,0.6); }
+  .modal-overlay.active .modal-panel { transform: translateY(0) scale(1); }
+  .modal-panel.modal-wide { max-width: 920px; }
+  .modal-close { position: absolute; top: 24px; right: 24px; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; background: none; color: var(--text); font-size: 16px; cursor: pointer; transition: border-color 0.3s, color 0.3s; z-index: 10; }
+  .modal-close:hover { border-color: var(--accent); color: var(--accent); }
+  .modal-eyebrow { font-family: var(--sans); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .modal-title { font-family: var(--serif); font-size: clamp(22px, 3vw, 32px); font-weight: 500; line-height: 1.35; margin-bottom: 12px; }
+  .modal-subtitle { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 36px; max-width: 460px; }
+  body.modal-open { overflow: hidden; }
+
+  /* Form Styles (Giữ nguyên) */
+  .form-tabs { display: flex; gap: 8px; margin-bottom: 32px; border: 1px solid var(--border); border-radius: 100px; padding: 4px; width: fit-content; }
+  .form-tab { font-family: var(--sans); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; padding: 10px 20px; border-radius: 100px; background: none; border: none; color: var(--muted); cursor: pointer; transition: background 0.3s, color 0.3s; }
+  .form-tab.active { background: var(--accent); color: #14100c; }
+  .form-group { margin-bottom: 22px; }
+  .form-label { display: block; font-family: var(--sans); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+  .form-input, .form-select { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--body); font-size: 15px; padding: 14px 18px; border-radius: 2px; transition: border-color 0.3s; }
+  .form-input:focus, .form-select:focus { outline: none; border-color: var(--accent); }
+  .form-file { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .form-file-btn { font-family: var(--sans); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--border); padding: 12px 20px; border-radius: 2px; color: var(--muted); transition: border-color 0.3s, color 0.3s; white-space: nowrap; }
+  .form-file-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .form-file-name { font-size: 13px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .form-note { font-size: 12px; color: var(--muted); margin-top: 24px; display: flex; align-items: center; gap: 10px; }
+  .form-note::before { content: '●'; color: var(--accent); font-size: 8px; }
+  .btn-primary { width: 100%; font-family: var(--sans); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; background: var(--accent); color: #14100c; border: none; padding: 18px; border-radius: 2px; margin-top: 12px; transition: opacity 0.3s; }
+  .btn-primary:hover { opacity: 0.85; }
+  .form-success { display: none; text-align: center; padding: 40px 0; }
+  .form-success.active { display: block; }
+  .form-success-icon { width: 56px; height: 56px; border: 1px solid var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 22px; color: var(--accent); }
+
+  /* Chi tiết tác phẩm trong Modal */
+  .artwork-modal-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 48px; }
+  .artwork-modal-visual { position: relative; height: 460px; overflow: hidden; box-shadow: 0 0 0 1px var(--frame); background-color: #0a0a0a; }
+  
+  /* Cập nhật style ảnh trong Modal Chi Tiết Tác Phẩm */
+  .artwork-modal-visual .work-visual {
+    width: 100%; height: 100%; position: absolute; top: 0; left: 0; 
+    background-size: cover; background-position: center;
+  }
+  
+  .artwork-modal-tag { position: absolute; top: 16px; left: 16px; font-family: var(--sans); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(20,16,12,0.75); color: var(--accent); padding: 6px 12px; border-radius: 100px; z-index: 2; }
+  .ar-btn { margin-top: 16px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--sans); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--border); background: none; color: var(--text); padding: 16px; border-radius: 2px; transition: border-color 0.3s, color 0.3s; }
+  .ar-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .artwork-modal-info { display: flex; flex-direction: column; }
+  .artist-line { font-family: var(--sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .artwork-modal-title-lg { font-family: var(--serif); font-size: clamp(22px, 2.6vw, 32px); font-style: italic; font-weight: 500; margin-bottom: 18px; line-height: 1.3; }
+  .artwork-story { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 28px; }
+
+  /* Audio player */
+  .audio-player { display: flex; align-items: center; gap: 16px; border: 1px solid var(--border); padding: 16px 20px; border-radius: 2px; margin-bottom: 32px; }
+  .audio-play-btn { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: none; color: var(--text); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: border-color 0.3s, color 0.3s; }
+  .audio-play-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .audio-track { flex-grow: 1; }
+  .audio-label { font-family: var(--sans); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .audio-progress-wrap { width: 100%; height: 2px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; }
+  .audio-progress-bar { height: 100%; width: 0%; background: var(--accent); transition: width 0.2s linear; }
+  .audio-time { font-family: var(--sans); font-size: 11px; color: var(--muted); margin-top: 8px; }
+
+  /* Workshop */
   .workshop-list { display: flex; flex-direction: column; }
   .workshop-row { display: grid; grid-template-columns: 1.6fr 1fr 1fr auto; align-items: center; gap: 24px; padding: 32px 0; border-top: 1px solid var(--border); }
   .workshop-row:last-child { border-bottom: 1px solid var(--border); }
@@ -337,6 +380,7 @@
   .workshop-meta-label { font-family: var(--sans); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .workshop-meta-value { font-size: 14px; color: var(--text); }
   .workshop-price { font-family: var(--sans); font-size: 15px; color: var(--accent); }
+  .workshop-action-col { text-align: right; }
 
   .qty-control { display: flex; align-items: center; gap: 20px; }
   .qty-btn { width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 50%; background: none; color: var(--text); font-size: 16px; transition: border-color 0.3s, color 0.3s; }
@@ -350,70 +394,10 @@
   .booking-total-value { font-family: var(--serif); font-size: 26px; font-style: italic; color: var(--accent); }
   .qr-box { display: none; text-align: center; border: 1px solid var(--border); padding: 32px; margin-top: 24px; }
   .qr-box.active { display: block; }
-  .qr-pattern { width: 140px; height: 140px; margin: 0 auto 20px; }
+  .qr-pattern { width: 140px; height: 140px; margin: 0 auto 20px; background: repeating-conic-gradient(var(--text) 0% 25%, transparent 0% 50%) 0 0 / 20px 20px; opacity: 0.85;}
   .qr-syntax { font-family: var(--sans); font-size: 12px; color: var(--muted); letter-spacing: 0.03em; line-height: 1.8; }
   .qr-syntax b { color: var(--text); }
 
-  /* === VIRTUAL GALLERY (Không Gian VI) === */
-  .virtual-frame { border: 1px solid var(--border); padding: 56px 48px; position: relative; }
-  .virtual-theme-title { font-family: var(--serif); font-size: clamp(24px, 2.8vw, 36px); font-weight: 500; font-style: italic; margin-bottom: 12px; }
-  .virtual-theme-desc { font-size: 14px; color: var(--muted); max-width: 480px; line-height: 1.6; margin-bottom: 48px; }
-  .virtual-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .virtual-tile { position: relative; height: 220px; overflow: hidden; border: 1px solid var(--border); }
-  .virtual-tile .work-visual { transform: scale(1); transition: transform 1.2s var(--ease-out-expo); }
-  .virtual-tile:hover .work-visual { transform: scale(1.08); }
-  .virtual-tile-label { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 16px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); }
-  .virtual-tile-artist { font-family: var(--sans); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
-  .virtual-tile-name { font-family: var(--serif); font-size: 14px; font-style: italic; color: #fff; }
-
-  /* Toast phản hồi nhanh */
-  .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); font-family: var(--sans); font-size: 13px; letter-spacing: 0.03em; padding: 16px 28px; border-radius: 100px; z-index: 600; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo); }
-  .toast.active { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  /* Khôi phục con trỏ thường cho vùng nhập liệu & nút bấm để không gây khó thao tác */
-  .modal-panel input, .modal-panel select, .modal-panel textarea, .modal-panel button,
-  .filter-select, .qty-btn, .drink-chip, .btn-outline, .btn-primary, .form-tab, .artwork-card, .space-row .btn-outline,
-  .form-file-btn, .text-link { cursor: pointer; }
-  .modal-panel input, .modal-panel textarea { cursor: text; }
-
-  /* === Nhãn phụ dùng trong lòng một "Không Gian" (vd: "Không Gian Trưng Bày" bên trong Explore) === */
-  .subsection-label { font-family: var(--sans); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-top: 100px; margin-bottom: 32px; }
-  .subsection-label.no-top { margin-top: 0; }
-
-  /* Link chữ mảnh, dùng cho các lối tắt trong nội dung (vd: đăng ký gói) */
-  .text-link { font-family: var(--sans); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 4px; transition: color 0.3s, border-color 0.3s; }
-  .text-link:hover { color: var(--accent); border-color: var(--accent); }
-  .pricing-cta { margin-top: 28px; }
-
-  /* Cột hành động bên phải mỗi dòng workshop */
-  .workshop-action-col { text-align: right; }
-
-  /* Toggle "Mua bản in / Mua tranh gốc" chiếm trọn chiều rộng — tái dùng .form-tabs */
-  .form-tabs.tabs-full { width: 100%; }
-  .form-tabs.tabs-full .form-tab { flex: 1; }
-
-  /* === CHI TIẾT TÁC PHẨM (Modal mua hàng) === */
-  .artwork-modal-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 48px; }
-  .artwork-modal-visual { position: relative; height: 460px; overflow: hidden; box-shadow: 0 0 0 1px var(--frame); }
-  .artwork-modal-tag { position: absolute; top: 16px; left: 16px; font-family: var(--sans); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; background: rgba(20,16,12,0.75); color: var(--accent); padding: 6px 12px; border-radius: 100px; z-index: 2; }
-  .ar-btn { margin-top: 16px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--sans); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; border: 1px solid var(--border); background: none; color: var(--text); padding: 16px; border-radius: 2px; transition: border-color 0.3s, color 0.3s; }
-  .ar-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .artwork-modal-info { display: flex; flex-direction: column; }
-  .artist-line { font-family: var(--sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-  .artwork-modal-title-lg { font-family: var(--serif); font-size: clamp(22px, 2.6vw, 32px); font-style: italic; font-weight: 500; margin-bottom: 18px; line-height: 1.3; }
-  .artwork-story { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 28px; }
-
-  /* Audio player — nghe nghệ sĩ kể chuyện tác phẩm */
-  .audio-player { display: flex; align-items: center; gap: 16px; border: 1px solid var(--border); padding: 16px 20px; border-radius: 2px; margin-bottom: 32px; }
-  .audio-play-btn { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: none; color: var(--text); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: border-color 0.3s, color 0.3s; }
-  .audio-play-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .audio-track { flex-grow: 1; }
-  .audio-label { font-family: var(--sans); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-  .audio-progress-wrap { width: 100%; height: 2px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; }
-  .audio-progress-bar { height: 100%; width: 0%; background: var(--accent); transition: width 0.2s linear; }
-  .audio-time { font-family: var(--sans); font-size: 11px; color: var(--muted); margin-top: 8px; }
-
-  /* Khối tuỳ chọn mua hàng */
   .buy-panel { border-top: 1px solid var(--border); padding-top: 28px; }
   .option-block { margin-bottom: 24px; }
   .option-block-label { font-family: var(--sans); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
@@ -427,27 +411,31 @@
   .btn-secondary-outline:hover { border-color: var(--accent); color: var(--accent); }
   .btn-secondary-outline:disabled, .buy-actions .btn-primary:disabled { opacity: 0.35; pointer-events: none; }
 
-  /* === Ướm thử AR (mô phỏng) === */
+  /* Cập nhật style ảnh cho AR & VR */
   .ar-overlay { position: fixed; inset: 0; z-index: 700; background: linear-gradient(180deg, #2b2620 0%, #1c1712 55%, #14100c 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease-out-expo); }
   .ar-overlay.active { opacity: 1; pointer-events: auto; }
   .ar-overlay::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: linear-gradient(180deg, transparent, rgba(0,0,0,0.5)); pointer-events: none; }
-  .ar-wall-frame { width: min(46vw, 380px); aspect-ratio: 4 / 5; box-shadow: 0 0 0 10px #2a2018, 0 40px 80px -20px rgba(0,0,0,0.7); position: relative; overflow: hidden; }
+  .ar-wall-frame { width: min(46vw, 380px); aspect-ratio: 4 / 5; box-shadow: 0 0 0 10px #2a2018, 0 40px 80px -20px rgba(0,0,0,0.7); position: relative; overflow: hidden; background-size: cover; background-position: center; background-color: #0a0a0a; }
   .ar-caption { margin-top: 40px; font-family: var(--sans); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: center; line-height: 1.8; padding: 0 24px; }
-  .ar-close { position: absolute; top: 32px; right: 32px; }
+  .ar-close { position: absolute; top: 32px; right: 32px; z-index: 10; }
 
-  /* === Không gian số 3D (mô phỏng) === */
   .vr-overlay { position: fixed; inset: 0; z-index: 700; background: var(--bg); opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease-out-expo); display: flex; flex-direction: column; justify-content: center; padding: 80px 0; }
   .vr-overlay.active { opacity: 1; pointer-events: auto; }
   .vr-header { text-align: center; margin-bottom: 56px; padding: 0 24px; }
   .vr-room { display: flex; gap: 0; padding: 0 6vw; perspective: 1400px; overflow-x: auto; }
-  .vr-tile { flex: 0 0 240px; height: 320px; position: relative; margin-right: 24px; overflow: hidden; box-shadow: 0 0 0 1px var(--frame); transition: transform 0.6s var(--ease-out-expo); }
+  .vr-tile { flex: 0 0 240px; height: 320px; position: relative; margin-right: 24px; overflow: hidden; box-shadow: 0 0 0 1px var(--frame); transition: transform 0.6s var(--ease-out-expo); background-color: #0a0a0a; }
+  
+  .vr-tile .work-visual { 
+    width: 100%; height: 100%; position: absolute; top: 0; left: 0; 
+    background-size: cover; background-position: center;
+  }
+  
   .vr-tile:nth-child(odd) { transform: rotateY(6deg); }
   .vr-tile:nth-child(even) { transform: rotateY(-6deg); }
   .vr-tile:hover { transform: rotateY(0) scale(1.04); }
   .vr-tile-label { position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 16px; background: linear-gradient(to top, rgba(0,0,0,0.85), transparent); }
-  .vr-close { position: absolute; top: 32px; right: 32px; }
+  .vr-close { position: absolute; top: 32px; right: 32px; z-index: 10;}
 
-  /* === Giỏ hàng === */
   .cart-item { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; border-top: 1px solid var(--border); }
   .cart-item:last-of-type { border-bottom: 1px solid var(--border); }
   .cart-item-name { font-family: var(--serif); font-size: 15px; font-style: italic; }
@@ -457,8 +445,21 @@
   .cart-item-remove:hover { color: var(--text); }
   .cart-empty { text-align: center; padding: 60px 0; color: var(--muted); font-size: 14px; }
 
-  /* Hoạ tiết QR trang trí (minh hoạ) — lấp vào ô .qr-pattern đã có kích thước sẵn */
-  .qr-pattern { background: repeating-conic-gradient(var(--text) 0% 25%, transparent 0% 50%) 0 0 / 20px 20px; opacity: 0.85; }
+  .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--text); color: var(--bg); font-family: var(--sans); font-size: 13px; letter-spacing: 0.03em; padding: 16px 28px; border-radius: 100px; z-index: 600; opacity: 0; pointer-events: none; transition: opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo); }
+  .toast.active { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .modal-panel input, .modal-panel select, .modal-panel textarea, .modal-panel button,
+  .filter-select, .qty-btn, .drink-chip, .btn-outline, .btn-primary, .form-tab, .artwork-card, .space-row .btn-outline,
+  .form-file-btn, .text-link { cursor: pointer; }
+  .modal-panel input, .modal-panel textarea { cursor: text; }
+
+  .subsection-label { font-family: var(--sans); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-top: 100px; margin-bottom: 32px; }
+  .subsection-label.no-top { margin-top: 0; }
+  .text-link { font-family: var(--sans); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 4px; transition: color 0.3s, border-color 0.3s; }
+  .text-link:hover { color: var(--accent); border-color: var(--accent); }
+  .pricing-cta { margin-top: 28px; }
+  .form-tabs.tabs-full { width: 100%; }
+  .form-tabs.tabs-full .form-tab { flex: 1; }
 
   @media (max-width: 768px) {
     nav { padding: 24px; } .nav-links { display: none; }
@@ -502,7 +503,7 @@
   <div class="cursor-dot" id="cursorDot"></div>
 </div>
 
-<!-- Cinematic Preloader with Curt Curtain Transition -->
+<!-- Cinematic Preloader -->
 <div class="loader" id="loader">
   <div class="loader-content" id="loaderContent">
     <div class="loader-label">Đang Mở Không Gian</div>
@@ -511,7 +512,7 @@
   </div>
 </div>
 
-<!-- Navigation with Magnetic Buttons -->
+<!-- Navigation -->
 <nav>
   <a href="#" class="nav-logo hover-target">artbridge</a>
   <ul class="nav-links">
@@ -526,10 +527,10 @@
   </ul>
 </nav>
 
-<!-- Fixed Hero (Parallaxed behind content) -->
+<!-- Fixed Hero -->
 <div class="hero-wrapper">
   <section class="hero" id="hero">
-    <div class="hero-eyebrow">Đang Giới Thiệu — Đề Tài NCKH</div>
+    <div class="hero-eyebrow">Đang Giới Thiệu</div>
     <h1 class="hero-headline">
       <span class="line-mask"><span>Một cây cầu nối</span></span>
       <span class="line-mask"><span class="delay-1"><em>Nghệ sĩ</em> — Không gian</span></span>
@@ -538,7 +539,6 @@
     </h1>
     <div class="hero-meta">
       <p class="hero-desc">Biến những mảng tường trống của quán café, coworking space, boutique hotel thành các triển lãm vi mô — nơi nghệ sĩ trẻ, không gian và người yêu nghệ thuật gặp nhau.</p>
-      <span class="hero-since">Đề Tài NCKH</span>
     </div>
     <div class="hero-scroll">
       <span>Cuộn xuống</span>
@@ -547,7 +547,6 @@
   </section>
 </div>
 
-<!-- Main Content (Scrolls over Hero) -->
 <div class="main-content">
   <!-- Dynamic Marquee -->
   <div class="marquee-section">
@@ -582,12 +581,10 @@
       <div class="section-label reveal" style="margin-bottom: 0;"><span>Không Gian II</span> Tính Năng Nền Tảng</div>
     </div>
     <div class="work-grid">
-      <!-- Item 1 -->
+      <!-- Item 1: Dùng ảnh trực tiếp từ Unsplash làm mẫu -->
       <a href="#" class="work-item reveal hover-work" data-speed="0.15">
         <div class="work-image-wrap">
-          <div class="work-visual parallax-bg" style="background: radial-gradient(circle at 40% 60%, #301b10 0%, #0a0a0a 80%);">
-            <div class="cgi-element" style="width: 50vw; height: 50vw; background: linear-gradient(45deg, #e67e22, transparent); top: 0; left: 10%; border-radius: 50%;"></div>
-            <div class="cgi-element" style="width: 30vw; height: 30vw; border: 2px solid rgba(255,255,255,0.05); top: 20%; right: 20%; border-radius: 50%;"></div>
+          <div class="work-visual parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&q=80&w=800');">
           </div>
         </div>
         <div class="work-overlay">
@@ -602,8 +599,7 @@
       <!-- Item 2 -->
       <a href="#" class="work-item reveal reveal-delay-1 hover-work" data-speed="0.1">
         <div class="work-image-wrap">
-          <div class="work-visual parallax-bg" style="background: radial-gradient(circle at 70% 30%, #15102a 0%, #0a0a0a 70%);">
-            <div class="cgi-element" style="width: 40vw; height: 40vw; background: linear-gradient(45deg, #8e44ad, transparent); top: 10%; right: -10%; border-radius: 50%;"></div>
+          <div class="work-visual parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?auto=format&fit=crop&q=80&w=800');">
           </div>
         </div>
         <div class="work-overlay">
@@ -618,8 +614,7 @@
       <!-- Item 3 -->
       <a href="#" class="work-item reveal hover-work" data-speed="0.12">
         <div class="work-image-wrap">
-          <div class="work-visual parallax-bg" style="background: radial-gradient(circle at 30% 80%, #2a1010 0%, #0a0a0a 80%);">
-             <div class="cgi-element" style="width: 60vw; height: 2px; background: #e74c3c; top: 60%; left: -20%; transform: rotate(-20deg);"></div>
+          <div class="work-visual parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=800');">
           </div>
         </div>
         <div class="work-overlay">
@@ -634,8 +629,7 @@
       <!-- Item 4 -->
       <a href="#" class="work-item reveal reveal-delay-1 hover-work" data-speed="0.08">
         <div class="work-image-wrap">
-          <div class="work-visual parallax-bg" style="background: radial-gradient(circle at 60% 40%, #1a2b1f 0%, #0a0a0a 80%);">
-            <div class="cgi-element" style="width: 45vw; height: 45vw; background: linear-gradient(45deg, #c9a464, transparent); top: 5%; left: -10%; border-radius: 50%;"></div>
+          <div class="work-visual parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1549887552-cb1071d3e5ca?auto=format&fit=crop&q=80&w=800');">
           </div>
         </div>
         <div class="work-overlay">
@@ -650,8 +644,7 @@
       <!-- Item 5 -->
       <a href="#" class="work-item reveal hover-work" data-speed="0.14">
         <div class="work-image-wrap">
-          <div class="work-visual parallax-bg" style="background: radial-gradient(circle at 50% 70%, #2a1f10 0%, #0a0a0a 80%);">
-             <div class="cgi-element" style="width: 55vw; height: 2px; background: #c9a464; top: 45%; left: -15%; transform: rotate(-15deg);"></div>
+          <div class="work-visual parallax-bg" style="background-image: url('image_d3a0ee.jpg');">
           </div>
         </div>
         <div class="work-overlay">
@@ -756,7 +749,8 @@
       </select>
     </div>
 
-    <div class="artwork-grid reveal" id="artworkGrid"><!-- Được render bằng JS --></div>
+    <!-- Container cho các tác phẩm - Ảnh sẽ được load bằng JS -->
+    <div class="artwork-grid reveal" id="artworkGrid"></div>
 
     <div class="subsection-label no-top">Không Gian Trưng Bày</div>
     <div class="space-list reveal" id="spaceList"><!-- Được render bằng JS --></div>
@@ -774,7 +768,10 @@
     <div class="virtual-frame reveal">
       <div class="virtual-theme-title">Mùa Thu &amp; Những Mảnh Ghép</div>
       <p class="virtual-theme-desc">Một không gian số quy tụ các tác phẩm nổi bật của nhiều nghệ sĩ ArtBridge theo cùng một chủ đề — khách tham quan xem trọn bộ sưu tập mà không cần đến tận nơi.</p>
-      <div class="virtual-grid" id="virtualGrid"><!-- Được render bằng JS --></div>
+      
+      <!-- Lưới Virtual - Ảnh sẽ được load bằng JS -->
+      <div class="virtual-grid" id="virtualGrid"></div>
+      
       <div style="margin-top: 40px; text-align: center;">
         <button class="btn-outline hover-target" onclick="openVirtualRoom()">Vào phòng triển lãm 3D →</button>
       </div>
@@ -828,7 +825,7 @@
     </div>
   </footer>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2026 ArtBridge — Đề tài nghiên cứu khoa học</span>
+    <span class="footer-copy">© 2026 ArtBridge</span>
     <div class="footer-socials">
       <a href="#" class="hover-target">Facebook</a>
       <a href="#" class="hover-target">Instagram</a>
@@ -840,7 +837,7 @@
 <!-- Toast phản hồi nhanh -->
 <div class="toast" id="toast"></div>
 
-<!-- Modal: Đăng ký & Xác thực đối tác -->
+<!-- Modal: Đăng ký -->
 <div class="modal-overlay" id="register" onclick="handleOverlayClick(event,'register')">
   <div class="modal-panel">
     <button class="modal-close hover-target" onclick="closeModal('register')">✕</button>
@@ -890,7 +887,7 @@
   </div>
 </div>
 
-<!-- Modal: Chi tiết tác phẩm & Mua hàng -->
+<!-- Modal: Chi tiết tác phẩm -->
 <div class="modal-overlay" id="artwork" onclick="handleOverlayClick(event,'artwork')">
   <div class="modal-panel modal-wide">
     <button class="modal-close hover-target" onclick="closeArtworkModal()">✕</button>
@@ -965,14 +962,14 @@
   </div>
 </div>
 
-<!-- Ướm Thử AR (mô phỏng) -->
+<!-- Ướm Thử AR -->
 <div class="ar-overlay" id="ar-overlay">
   <button class="modal-close ar-close hover-target" onclick="closeAR()">✕</button>
   <div class="ar-wall-frame" id="arWallFrame"></div>
   <div class="ar-caption">Minh hoạ Ướm Thử AR — mô phỏng vị trí treo tranh trên tường<br>(không phải hình ảnh thực tế không gian của bạn)</div>
 </div>
 
-<!-- Không Gian Số 3D (mô phỏng) -->
+<!-- Không Gian Số 3D -->
 <div class="vr-overlay" id="vr-overlay">
   <button class="modal-close vr-close hover-target" onclick="closeVirtualRoom()">✕</button>
   <div class="vr-header">
@@ -983,12 +980,11 @@
 </div>
 
 <script>
-  // === 1. LENIS SMOOTH SCROLL INIT (có dự phòng nếu CDN không tải được) ===
   let lenis;
   if (typeof Lenis !== 'undefined') {
     lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Expo ease out
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
@@ -997,18 +993,14 @@
       touchMultiplier: 2,
     });
 
-    // Stop scroll during loader
     lenis.stop();
-
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
     requestAnimationFrame(raf);
   } else {
-    // Thư viện Lenis không tải được (mạng chặn CDN, offline, v.v.)
-    // -> dùng cuộn gốc của trình duyệt, giữ nguyên các hiệu ứng khác của trang
-    console.warn('Lenis chưa tải được — chuyển sang cuộn mặc định của trình duyệt.');
+    console.warn('Lenis chưa tải được — chuyển sang cuộn mặc định.');
     const scrollCallbacks = [];
     let lastScrollY = window.scrollY;
     lenis = {
@@ -1025,58 +1017,36 @@
     }, { passive: true });
   }
 
-  // === 2. MAGNETIC CURSOR & ELEMENTS ===
+  // Magnetic Cursor
   const cursorWrap = document.getElementById('cursorWrapper');
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let cursorX = mouseX;
-  let cursorY = mouseY;
+  let mouseX = window.innerWidth / 2; let mouseY = window.innerHeight / 2;
+  let cursorX = mouseX; let cursorY = mouseY;
   
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX; mouseY = e.clientY;
   });
 
-  // Magnetic logic
   const magnetics = document.querySelectorAll('.magnetic, .magnetic-btn');
   magnetics.forEach(el => {
     el.addEventListener('mousemove', e => {
       const rect = el.getBoundingClientRect();
-      const h = rect.width / 2;
-      const v = rect.height / 2;
-      const x = e.clientX - rect.left - h;
-      const y = e.clientY - rect.top - v;
-      
-      // Pull element towards mouse
+      const h = rect.width / 2; const v = rect.height / 2;
+      const x = e.clientX - rect.left - h; const y = e.clientY - rect.top - v;
       el.children[0].style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
     });
-    el.addEventListener('mouseleave', e => {
-      // Spring back
-      el.children[0].style.transform = `translate(0px, 0px)`;
-    });
+    el.addEventListener('mouseleave', () => el.children[0].style.transform = `translate(0px, 0px)`);
   });
 
-  // Cursor Hover States
-  document.querySelectorAll('.hover-target').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover-link'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover-link'));
-  });
-  document.querySelectorAll('.hover-work').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover-work'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover-work'));
-  });
-
-  // === 3. UNIFIED LOADER & ENTRANCE TRANSITION ===
+  // Loader & Entrance
   const loaderText = document.getElementById('pctText');
   const loaderBar = document.getElementById('loaderBar');
   const loader = document.getElementById('loader');
   let pct = 0;
-  
-  // Trạng thái LERP đồng bộ chuyển động cho Hero section
-  let entranceProgress = 0; // Trôi từ 0 tới 1 sau khi load xong
-  let currentEntrance = 0;  // Giá trị LERP mượt của Progress
+  let entranceProgress = 0; 
+  let currentEntrance = 0;  
   
   const fill = setInterval(() => {
-    pct += Math.floor(Math.random() * 8) + 2; // Nhảy nhỏ tạo sự nhịp nhàng, mượt mà hơn
+    pct += Math.floor(Math.random() * 8) + 2; 
     if (pct >= 100) {
       pct = 100;
       loaderBar.style.width = '100%';
@@ -1084,22 +1054,12 @@
       clearInterval(fill);
       
       setTimeout(() => {
-        // Giai đoạn 1: Bay chữ và thanh loading
         loader.classList.add('out-active');
-        
         setTimeout(() => {
-          // Giai đoạn 2: Kéo rèm loader lên
           loader.classList.add('hidden');
-          lenis.start(); // Kích hoạt cuộn mượt
-          
-          // Giai đoạn 3: Bắt đầu cho Hero biến hình và hạ phanh
+          lenis.start(); 
           entranceProgress = 1;
-          
-          setTimeout(() => {
-            // Giai đoạn 4: Kích hoạt dải chữ (Mask) trượt so le của Hero
-            document.body.classList.add('loaded');
-          }, 350);
-          
+          setTimeout(() => document.body.classList.add('loaded'), 350);
         }, 500);
       }, 500);
     } else {
@@ -1108,68 +1068,53 @@
     }
   }, 45);
 
-  // === 4. GLOBAL RENDER LOOP (Lerp Parallax + Settle Entrance) ===
+  // Render Loop & Parallax
   const hero = document.getElementById('hero');
   const marquee1 = document.getElementById('marquee1');
   const drivenWrap = document.getElementById('drivenTextWrap');
   const parallaxBgs = document.querySelectorAll('.parallax-bg');
   
-  let currentScroll = 0;
-  let marqueePos = 0;
-
+  let currentScroll = 0; let marqueePos = 0;
   lenis.on('scroll', ({ scroll, velocity }) => {
     currentScroll = scroll;
-    marqueePos += velocity * 0.5; // Đẩy Marquee lệch tốc dựa theo quán tính cuộn
+    marqueePos += velocity * 0.5; 
   });
 
   function renderLoop() {
-    // 1. Lerp con trỏ chuột
     cursorX += (mouseX - cursorX) * 0.15;
     cursorY += (mouseY - cursorY) * 0.15;
     cursorWrap.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+    currentEntrance += (entranceProgress - currentEntrance) * 0.045; 
 
-    // 2. LERP Entrance chuyển cảnh từ Preloader
-    currentEntrance += (entranceProgress - currentEntrance) * 0.045; // Tỷ lệ LERP tối ưu nhất cho gia tốc chậm dần đều
-
-    // 3. Phối hợp LERP Entrance & Parallax cuộn lên của Hero Section
     if(window.innerWidth > 768) {
-        // Khi tải (currentEntrance 0 -> 1): scale thu nhỏ dần từ 1.06 về 1.0, translateY nâng lên mượt mà từ 40px về 0px
-        // Khi cuộn trang (currentScroll): scale tiếp tục thu nhỏ, translateY tiếp tục di dời tạo độ dốc
         const scale = (1.06 - (0.06 * currentEntrance)) * (1 - currentScroll * 0.0005);
         const translateY = ((1 - currentEntrance) * 40) + (currentScroll * 0.4);
         const opacity = currentEntrance * (1 - currentScroll * 0.0015);
-        
         hero.style.transform = `translateY(${translateY}px) scale(${scale})`;
         hero.style.opacity = opacity;
     } else {
-        // Di động tối giản hóa để tránh giật hình hiệu năng
         hero.style.opacity = currentEntrance;
     }
 
-    // 4. Chạy chữ Marquee
-    marqueePos -= 1; // Tốc độ cơ bản
+    marqueePos -= 1; 
     marquee1.style.transform = `translateX(${marqueePos % (marquee1.scrollWidth / 2)}px)`;
+    if(drivenWrap) drivenWrap.style.transform = `translateX(${-currentScroll * 0.15}px)`;
 
-    // 5. Chạy chữ Driven theo phương ngang mượt mà
-    if(drivenWrap) {
-       drivenWrap.style.transform = `translateX(${-currentScroll * 0.15}px)`;
-    }
-
-    // 6. Parallax chuyển động vật lý cho ảnh thuộc Work Section
     parallaxBgs.forEach(bg => {
       const parent = bg.closest('.work-item');
-      const speed = parent.getAttribute('data-speed') || 0.1;
-      const rect = parent.getBoundingClientRect();
-      const centerOffset = (window.innerHeight / 2) - (rect.top + rect.height / 2);
-      const yPos = centerOffset * speed;
-      bg.style.transform = `translateY(${-yPos}px) scale(1.1)`; 
+      if (parent) {
+          const speed = parent.getAttribute('data-speed') || 0.1;
+          const rect = parent.getBoundingClientRect();
+          const centerOffset = (window.innerHeight / 2) - (rect.top + rect.height / 2);
+          const yPos = centerOffset * speed;
+          bg.style.transform = `translateY(${-yPos}px) scale(1.1)`; 
+      }
     });
 
     requestAnimationFrame(renderLoop);
   }
   requestAnimationFrame(renderLoop);
 
-  // === 5. INTERSECTION OBSERVER REVEALS ===
   const reveals = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -1180,19 +1125,48 @@
     });
   }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
   reveals.forEach(el => io.observe(el));
+
+  // === 6. SMOOTH SCROLL CHO ANCHOR LINKS (MENU NAVBAR) ===
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      
+      // Xử lý riêng cho nút có href="#" (ví dụ Logo, Giỏ hàng)
+      if (targetId === '#') {
+        if (this.classList.contains('nav-logo')) {
+          e.preventDefault();
+          if (typeof lenis !== 'undefined') lenis.scrollTo(0, { duration: 1.2 });
+          else window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        return;
+      }
+      
+      // Tìm ID Không Gian tương ứng
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        if (typeof lenis !== 'undefined') {
+          // Dùng Lenis để tạo hiệu ứng cuộn mượt
+          lenis.scrollTo(targetElement, { duration: 1.2 });
+        } else {
+          // Dự phòng dùng API gốc của trình duyệt
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
 </script>
 
 <script>
   // ============================================================
-  //  DỮ LIỆU MINH HOẠ (nội dung demo cho đề tài NCKH)
-  // ============================================================
+  //  DỮ LIỆU MINH HOẠ (nội dung demo)
   const artworksData = [
-    { id:1, title:'Nắng Sài Gòn Vỡ Vụn', artist:'Lê Minh Anh', style:'Trừu tượng', status:'Còn hàng', venue:'Lofi Coffee', originalPrice:4200000, podBase:250000, story:'Tác phẩm ghi lại khoảnh khắc nắng xuyên qua tán me trên một con phố trung tâm vào buổi chiều cuối tuần, khi ánh sáng vỡ vụn thành từng mảng màu cam ấm trên mặt đường.', gradient:'radial-gradient(circle at 40% 60%, #301b10 0%, #0a0a0a 80%)', blob:'linear-gradient(45deg, #e67e22, transparent)' },
-    { id:2, title:'Ký Ức Rêu Phong', artist:'Trần Bảo Ngọc', style:'Phong cảnh', status:'Còn hàng', venue:'Kafén lle', originalPrice:3500000, podBase:250000, story:'Những mảng tường cũ phủ rêu ở khu phố cổ được tái hiện qua gam màu xanh trầm lắng, gợi nhắc về thời gian và ký ức đô thị đang dần phai.', gradient:'radial-gradient(circle at 70% 30%, #15102a 0%, #0a0a0a 70%)', blob:'linear-gradient(45deg, #8e44ad, transparent)' },
-    { id:3, title:'Chân Dung Người Lạ', artist:'Phạm Gia Huy', style:'Chân dung', status:'Đã bán', venue:'The Shelter Coffee', originalPrice:5800000, podBase:250000, story:'Một lát cắt cảm xúc về những gương mặt vô danh lướt qua nhau mỗi ngày trên phố, được vẽ lại bằng nét cọ dứt khoát và mảng màu tương phản mạnh.', gradient:'radial-gradient(circle at 30% 80%, #2a1010 0%, #0a0a0a 80%)', blob:'linear-gradient(45deg, #e74c3c, transparent)' },
-    { id:4, title:'Nhịp Điệu Vỉa Hè', artist:'Ngô Thanh Trúc', style:'Đường phố', status:'Còn hàng', venue:'Mây F&B', originalPrice:2600000, podBase:250000, story:'Cảm hứng từ những gánh hàng rong và tiếng rao quen thuộc giữa lòng đô thị, tác phẩm mang nhịp điệu sống động của vỉa hè vào một khung tranh tĩnh lặng.', gradient:'radial-gradient(circle at 60% 40%, #1a2b1f 0%, #0a0a0a 80%)', blob:'linear-gradient(45deg, #c9a464, transparent)' },
-    { id:5, title:'Biển Chiều Không Tên', artist:'Đỗ Khánh Linh', style:'Phong cảnh', status:'Sắp ra mắt', venue:'Lofi Coffee', originalPrice:6200000, podBase:280000, story:'Loạt tranh về biển miền Trung được vẽ trong một mùa gió chướng dài, nơi ranh giới giữa trời và biển nhoà đi trong sắc xanh lạnh.', gradient:'radial-gradient(circle at 50% 70%, #10202a 0%, #0a0a0a 80%)', blob:'linear-gradient(45deg, #3498db, transparent)' },
-    { id:6, title:'Mảnh Ghép Nội Tâm', artist:'Vũ Anh Tuấn', style:'Trừu tượng', status:'Còn hàng', venue:'Kafén lle', originalPrice:3900000, podBase:250000, story:'Bố cục hình khối chồng lớp thể hiện những mảng cảm xúc đan xen khó gọi tên — một cuộc đối thoại thầm lặng giữa lý trí và bản năng.', gradient:'radial-gradient(circle at 45% 45%, #241a2a 0%, #0a0a0a 80%)', blob:'linear-gradient(45deg, #9b59b6, transparent)' },
+    { id:1, title:'Nắng Sài Gòn Vỡ Vụn', artist:'Lê Minh Anh', style:'Trừu tượng', status:'Còn hàng', venue:'Lofi Coffee', originalPrice:4200000, podBase:250000, story:'Tác phẩm ghi lại khoảnh khắc nắng xuyên qua tán me trên một con phố trung tâm vào buổi chiều cuối tuần, khi ánh sáng vỡ vụn thành từng mảng màu cam ấm trên mặt đường.', image:'image_d3a0ee.jpg' },
+    { id:2, title:'Ký Ức Rêu Phong', artist:'Trần Bảo Ngọc', style:'Phong cảnh', status:'Còn hàng', venue:'Kafén lle', originalPrice:3500000, podBase:250000, story:'Những mảng tường cũ phủ rêu ở khu phố cổ được tái hiện qua gam màu xanh trầm lắng, gợi nhắc về thời gian và ký ức đô thị đang dần phai.', image:'image_d3a54c.jpg' },
+    { id:3, title:'Nhịp Điệu Vỉa Hè', artist:'Ngô Thanh Trúc', style:'Đường phố', status:'Còn hàng', venue:'Mây F&B', originalPrice:2600000, podBase:250000, story:'Cảm hứng từ những gánh hàng rong và tiếng rao quen thuộc giữa lòng đô thị, tác phẩm mang nhịp điệu sống động của vỉa hè vào một khung tranh tĩnh lặng.', image:'image_d3a855.jpg' },
+    { id:4, title:'Mảnh Ghép Nội Tâm', artist:'Vũ Anh Tuấn', style:'Trừu tượng', status:'Còn hàng', venue:'Kafén lle', originalPrice:3900000, podBase:250000, story:'Bố cục hình khối chồng lớp thể hiện những mảng cảm xúc đan xen khó gọi tên — một cuộc đối thoại thầm lặng giữa lý trí và bản năng.', image:'image_d3a8b3.jpg' },
+    { id:5, title:'Biển Chiều Không Tên', artist:'Đỗ Khánh Linh', style:'Phong cảnh', status:'Sắp ra mắt', venue:'Lofi Coffee', originalPrice:6200000, podBase:280000, story:'Loạt tranh về biển miền Trung được vẽ trong một mùa gió chướng dài, nơi ranh giới giữa trời và biển nhoà đi trong sắc xanh lạnh.', image:'image_d3a0ee.jpg' },
+    { id:6, title:'Chân Dung Người Lạ', artist:'Phạm Gia Huy', style:'Chân dung', status:'Đã bán', venue:'The Shelter Coffee', originalPrice:5800000, podBase:250000, story:'Một lát cắt cảm xúc về những gương mặt vô danh lướt qua nhau mỗi ngày trên phố, được vẽ lại bằng nét cọ dứt khoát và mảng màu tương phản mạnh.', image:'image_d3a54c.jpg' }
   ];
 
   const sizeOptions = [ { label:'A5', extra:0 }, { label:'A4', extra:100000 }, { label:'A3', extra:250000 } ];
@@ -1205,29 +1179,28 @@
     { name:'Lofi Coffee', area:'≈ 10m² tường sau quầy thu ngân', note:'Phong cách hoài cổ, ánh đèn vàng' },
   ];
 
+  const drinkChoices = ['Cà phê đen', 'Cà phê sữa', 'Trà vải'];
+
   const workshopsData = [
     { id:1, name:'Chạm Vào Màu Nước', schedule:'Thứ 7 hàng tuần · 15:00 – 17:00', venue:'Lofi Coffee', price:180000 },
     { id:2, name:'Tô Màu Toan Mini & Chữa Lành', schedule:'Chủ nhật · 09:30 – 11:30', venue:'The Shelter Coffee', price:150000 },
     { id:3, name:'Ký Hoạ Đô Thị Cuối Tuần', schedule:'Chủ nhật · 16:00 – 18:00', venue:'Mây F&B', price:200000 },
   ];
-  const drinkChoices = ['Cà phê đen', 'Cà phê sữa', 'Trà vải'];
 
   const virtualPieces = [
-    { artist:'Lê Minh Anh', title:'Nắng Sài Gòn Vỡ Vụn', gradient:'radial-gradient(circle at 40% 60%, #301b10 0%, #0a0a0a 80%)' },
-    { artist:'Trần Bảo Ngọc', title:'Ký Ức Rêu Phong', gradient:'radial-gradient(circle at 70% 30%, #15102a 0%, #0a0a0a 70%)' },
-    { artist:'Ngô Thanh Trúc', title:'Nhịp Điệu Vỉa Hè', gradient:'radial-gradient(circle at 60% 40%, #1a2b1f 0%, #0a0a0a 80%)' },
-    { artist:'Vũ Anh Tuấn', title:'Mảnh Ghép Nội Tâm', gradient:'radial-gradient(circle at 45% 45%, #241a2a 0%, #0a0a0a 80%)' },
-    { artist:'Đỗ Khánh Linh', title:'Biển Chiều Không Tên', gradient:'radial-gradient(circle at 50% 70%, #10202a 0%, #0a0a0a 80%)' },
-    { artist:'Phạm Gia Huy', title:'Chân Dung Người Lạ', gradient:'radial-gradient(circle at 30% 80%, #2a1010 0%, #0a0a0a 80%)' },
-    { artist:'Lê Minh Anh', title:'Vệt Nắng Thứ Hai', gradient:'radial-gradient(circle at 55% 35%, #302010 0%, #0a0a0a 80%)' },
-    { artist:'Trần Bảo Ngọc', title:'Lối Nhỏ Không Tên', gradient:'radial-gradient(circle at 35% 65%, #1a2020 0%, #0a0a0a 80%)' },
+    { artist:'Lê Minh Anh', title:'Nắng Sài Gòn Vỡ Vụn', image:'image_d3a0ee.jpg' },
+    { artist:'Trần Bảo Ngọc', title:'Ký Ức Rêu Phong', image:'image_d3a54c.jpg' },
+    { artist:'Ngô Thanh Trúc', title:'Nhịp Điệu Vỉa Hè', image:'image_d3a855.jpg' },
+    { artist:'Vũ Anh Tuấn', title:'Mảnh Ghép Nội Tâm', image:'image_d3a8b3.jpg' },
+    { artist:'Đỗ Khánh Linh', title:'Biển Chiều Không Tên', image:'image_d3a0ee.jpg' },
+    { artist:'Phạm Gia Huy', title:'Chân Dung Người Lạ', image:'image_d3a54c.jpg' },
+    { artist:'Lê Minh Anh', title:'Vệt Nắng Thứ Hai', image:'image_d3a855.jpg' },
+    { artist:'Trần Bảo Ngọc', title:'Lối Nhỏ Không Tên', image:'image_d3a8b3.jpg' },
   ];
 
   function fmtVND(n){ return n.toLocaleString('vi-VN') + 'đ'; }
 
-  // ============================================================
-  //  HỆ THỐNG MODAL DÙNG CHUNG
-  // ============================================================
+  // Hệ thống Modal
   function refreshScrollLock(){
     const anyActive = document.querySelector('.modal-overlay.active, .ar-overlay.active, .vr-overlay.active');
     document.body.classList.toggle('modal-open', !!anyActive);
@@ -1245,47 +1218,30 @@
     if(id === 'artwork') stopAudio();
     refreshScrollLock();
   }
-  function handleOverlayClick(e, id){
-    if(e.target.id === id) closeModal(id);
-  }
+  function handleOverlayClick(e, id){ if(e.target.id === id) closeModal(id); }
   function showToast(msg){
     const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('active');
-    clearTimeout(t._timer);
-    t._timer = setTimeout(() => t.classList.remove('active'), 2800);
+    t.textContent = msg; t.classList.add('active');
+    clearTimeout(t._timer); t._timer = setTimeout(() => t.classList.remove('active'), 2800);
   }
   document.addEventListener('keydown', e => {
     if(e.key === 'Escape'){
       document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m.id));
-      closeAR();
-      closeVirtualRoom();
+      closeAR(); closeVirtualRoom();
     }
   });
 
-  // ============================================================
-  //  1) ĐĂNG KÝ & XÁC THỰC ĐỐI TÁC
-  // ============================================================
+  // Đăng ký
   function setRegisterTab(type){
     document.getElementById('tabArtist').classList.toggle('active', type === 'artist');
     document.getElementById('tabSpace').classList.toggle('active', type === 'space');
-    document.getElementById('portfolioLabel').textContent = type === 'artist'
-      ? 'Link Portfolio (Behance, Google Drive,...)'
-      : 'Link Fanpage / Website quán (nếu có)';
+    document.getElementById('portfolioLabel').textContent = type === 'artist' ? 'Link Portfolio' : 'Link Fanpage / Website';
     document.getElementById('portfolioInput').placeholder = type === 'artist' ? 'https://behance.net/...' : 'https://facebook.com/...';
   }
-  function handleFileChange(input, spanId){
-    document.getElementById(spanId).textContent = input.files.length ? input.files[0].name : 'Chưa chọn tệp nào';
-  }
-  function submitRegister(e){
-    e.preventDefault();
-    document.getElementById('registerFormWrap').style.display = 'none';
-    document.getElementById('registerSuccess').classList.add('active');
-  }
+  function handleFileChange(input, spanId){ document.getElementById(spanId).textContent = input.files.length ? input.files[0].name : 'Chưa chọn tệp nào'; }
+  function submitRegister(e){ e.preventDefault(); document.getElementById('registerFormWrap').style.display = 'none'; document.getElementById('registerSuccess').classList.add('active'); }
 
-  // ============================================================
-  //  2) KHÁM PHÁ: DANH MỤC TÁC PHẨM + BỘ LỌC
-  // ============================================================
+  // Khám phá (Cập nhật sử dụng image thay cho gradient)
   function priceBand(p){ if(p < 1000000) return 'low'; if(p <= 3000000) return 'mid'; return 'high'; }
 
   function renderArtworkGrid(){
@@ -1294,21 +1250,17 @@
     const status = document.getElementById('filterStatus').value;
     const grid = document.getElementById('artworkGrid');
     const filtered = artworksData.filter(a =>
-      (!style || a.style === style) &&
-      (!priceF || priceBand(a.originalPrice) === priceF) &&
-      (!status || a.status === status)
+      (!style || a.style === style) && (!priceF || priceBand(a.originalPrice) === priceF) && (!status || a.status === status)
     );
     if(!filtered.length){
-      grid.innerHTML = '<div class="artwork-empty">Không tìm thấy tác phẩm phù hợp với bộ lọc đã chọn.</div>';
+      grid.innerHTML = '<div class="artwork-empty">Không tìm thấy tác phẩm.</div>';
       return;
     }
     grid.innerHTML = filtered.map(a => `
       <button class="artwork-card hover-work" onclick="openArtworkModal(${a.id})">
         <div class="artwork-card-visual">
           <span class="artwork-card-tag">Đang treo tại ${a.venue}</span>
-          <div class="work-visual" style="background:${a.gradient};">
-            <div class="cgi-element" style="width:26vw; height:26vw; background:${a.blob}; top:10%; left:10%; border-radius:50%;"></div>
-          </div>
+          <div class="work-visual" style="background-image: url('${a.image}');"></div>
         </div>
         <div class="artwork-card-body">
           <div class="artwork-card-title">${a.title}</div>
@@ -1332,28 +1284,16 @@
       </div>
     `).join('');
   }
-  function proposeArtwork(name){
-    showToast(`Đã gửi đề xuất treo tranh tới ${name}. ArtBridge sẽ liên hệ trong 24h.`);
-  }
+  function proposeArtwork(name){ showToast(`Đã gửi đề xuất treo tranh tới ${name}.`); }
 
-  // ============================================================
-  //  3) CHI TIẾT TÁC PHẨM & MUA HÀNG
-  // ============================================================
-  let currentArtwork = null;
-  let buyMode = 'pod';
-  let selectedSize = 0;
-  let selectedFrame = 0;
-  let audioPlaying = false;
-  let audioTimer = null;
-  let audioElapsed = 0;
-  const AUDIO_DURATION = 42; // giây — minh hoạ
+  // Chi tiết tác phẩm (Cập nhật image)
+  let currentArtwork = null; let buyMode = 'pod'; let selectedSize = 0; let selectedFrame = 0;
+  let audioPlaying = false; let audioTimer = null; let audioElapsed = 0; const AUDIO_DURATION = 42;
 
   function openArtworkModal(id){
     currentArtwork = artworksData.find(a => a.id === id);
     buyMode = 'pod'; selectedSize = 0; selectedFrame = 0; audioElapsed = 0;
-    stopAudio();
-    renderArtworkModal();
-    openModal('artwork');
+    stopAudio(); renderArtworkModal(); openModal('artwork');
   }
   function closeArtworkModal(){ closeModal('artwork'); }
 
@@ -1368,9 +1308,7 @@
       <div>
         <div class="artwork-modal-visual">
           <span class="artwork-modal-tag">Đang treo tại ${a.venue}</span>
-          <div class="work-visual" style="background:${a.gradient};">
-            <div class="cgi-element" style="width:32vw; height:32vw; background:${a.blob}; top:10%; left:15%; border-radius:50%;"></div>
-          </div>
+          <div class="work-visual" style="background-image: url('${a.image}');"></div>
         </div>
         <button class="ar-btn hover-target" onclick="openAR()">⛶ Ướm thử lên tường (AR)</button>
       </div>
@@ -1378,7 +1316,6 @@
         <div class="artist-line">${a.artist} · ${a.style}</div>
         <h3 class="artwork-modal-title-lg">${a.title}</h3>
         <p class="artwork-story">${a.story}</p>
-
         <div class="audio-player">
           <button class="audio-play-btn hover-target" id="audioPlayBtn" onclick="toggleAudio()">▶</button>
           <div class="audio-track">
@@ -1387,37 +1324,22 @@
             <div class="audio-time" id="audioTime">0:00 / 0:${AUDIO_DURATION}</div>
           </div>
         </div>
-
         <div class="buy-panel">
           <div class="form-tabs tabs-full">
             <button type="button" class="form-tab ${buyMode==='pod'?'active':''}" onclick="setBuyMode('pod')">Mua bản in (POD)</button>
             <button type="button" class="form-tab ${buyMode==='original'?'active':''}" onclick="setBuyMode('original')">Mua tranh gốc</button>
           </div>
-
           ${buyMode === 'pod' ? `
-            <div class="option-block">
-              <div class="option-block-label">Kích thước</div>
-              <div class="drink-options">${sizeChips}</div>
-            </div>
-            <div class="option-block">
-              <div class="option-block-label">Chất liệu khung</div>
-              <div class="drink-options">${frameChips}</div>
-            </div>
-            <div class="price-live-wrap">
-              <span class="price-live-label">Tạm tính</span>
-              <span class="price-live-value">${fmtVND(podPrice)}</span>
-            </div>
+            <div class="option-block"><div class="option-block-label">Kích thước</div><div class="drink-options">${sizeChips}</div></div>
+            <div class="option-block"><div class="option-block-label">Chất liệu khung</div><div class="drink-options">${frameChips}</div></div>
+            <div class="price-live-wrap"><span class="price-live-label">Tạm tính</span><span class="price-live-value">${fmtVND(podPrice)}</span></div>
           ` : `
-            <div class="price-live-wrap">
-              <span class="price-live-label">Giá tranh gốc</span>
-              <span class="price-live-value">${fmtVND(a.originalPrice)}</span>
-            </div>
+            <div class="price-live-wrap"><span class="price-live-label">Giá tranh gốc</span><span class="price-live-value">${fmtVND(a.originalPrice)}</span></div>
             <div class="stock-note">${soldOut ? 'Tác phẩm này đã có chủ.' : 'Chỉ còn 1 bản duy nhất — tranh gốc.'}</div>
           `}
-
           <div class="buy-actions">
-            <button class="btn-primary hover-target" onclick="addToCart()" ${soldOut ? 'disabled' : ''}>Thêm vào giỏ hàng</button>
-            <button class="btn-secondary-outline hover-target" onclick="addToCart(true)" ${soldOut ? 'disabled' : ''}>Đặt mua ngay</button>
+            <button class="btn-primary hover-target" onclick="addToCart()" ${soldOut ? 'disabled' : ''}>Thêm vào giỏ</button>
+            <button class="btn-secondary-outline hover-target" onclick="addToCart(true)" ${soldOut ? 'disabled' : ''}>Mua ngay</button>
           </div>
         </div>
       </div>
@@ -1427,100 +1349,66 @@
   function selectSize(i){ selectedSize = i; renderArtworkModal(); }
   function selectFrame(i){ selectedFrame = i; renderArtworkModal(); }
 
-  // Audio player (minh hoạ — mô phỏng tiến trình phát)
+  // Audio
   function toggleAudio(){ audioPlaying ? stopAudio() : startAudio(); }
   function startAudio(){
     audioPlaying = true;
-    const btn = document.getElementById('audioPlayBtn');
-    if(btn) btn.textContent = '❚❚';
+    const btn = document.getElementById('audioPlayBtn'); if(btn) btn.textContent = '❚❚';
     clearInterval(audioTimer);
     audioTimer = setInterval(() => {
-      audioElapsed += 1;
-      if(audioElapsed >= AUDIO_DURATION){ audioElapsed = 0; stopAudio(); }
+      audioElapsed += 1; if(audioElapsed >= AUDIO_DURATION){ audioElapsed = 0; stopAudio(); }
       updateAudioUI();
     }, 1000);
   }
   function stopAudio(){
-    audioPlaying = false;
-    clearInterval(audioTimer);
-    const btn = document.getElementById('audioPlayBtn');
-    if(btn) btn.textContent = '▶';
+    audioPlaying = false; clearInterval(audioTimer);
+    const btn = document.getElementById('audioPlayBtn'); if(btn) btn.textContent = '▶';
     updateAudioUI();
   }
   function updateAudioUI(){
-    const bar = document.getElementById('audioBar');
-    const time = document.getElementById('audioTime');
+    const bar = document.getElementById('audioBar'); const time = document.getElementById('audioTime');
     if(!bar || !time) return;
     bar.style.width = (audioElapsed / AUDIO_DURATION * 100) + '%';
     time.textContent = `0:${String(audioElapsed).padStart(2,'0')} / 0:${AUDIO_DURATION}`;
   }
 
-  // Ướm thử AR (mô phỏng)
+  // Ướm thử AR (Cập nhật image)
   function openAR(){
     if(!currentArtwork) return;
-    document.getElementById('arWallFrame').style.background = currentArtwork.gradient;
+    document.getElementById('arWallFrame').style.backgroundImage = `url('${currentArtwork.image}')`;
     document.getElementById('ar-overlay').classList.add('active');
     refreshScrollLock();
   }
-  function closeAR(){
-    document.getElementById('ar-overlay').classList.remove('active');
-    refreshScrollLock();
-  }
+  function closeAR(){ document.getElementById('ar-overlay').classList.remove('active'); refreshScrollLock(); }
 
-  // ============================================================
-  //  4) GIỎ HÀNG
-  // ============================================================
+  // Giỏ hàng, Workshop... (Giữ nguyên logic)
   let cartItems = [];
   function addToCart(checkoutNow){
-    const a = currentArtwork;
-    let label, price;
-    if(buyMode === 'pod'){
-      label = `${a.title} — bản in ${sizeOptions[selectedSize].label}, khung ${frameOptions[selectedFrame].label}`;
-      price = a.podBase + sizeOptions[selectedSize].extra + frameOptions[selectedFrame].extra;
-    } else {
-      label = `${a.title} — tranh gốc`;
-      price = a.originalPrice;
-    }
+    const a = currentArtwork; let label, price;
+    if(buyMode === 'pod'){ label = `${a.title} — bản in ${sizeOptions[selectedSize].label}, khung ${frameOptions[selectedFrame].label}`; price = a.podBase + sizeOptions[selectedSize].extra + frameOptions[selectedFrame].extra; } 
+    else { label = `${a.title} — tranh gốc`; price = a.originalPrice; }
     cartItems.push({ label, price, artist: a.artist });
     document.getElementById('cartCount').textContent = cartItems.length;
     showToast(`Đã thêm "${a.title}" vào giỏ hàng.`);
-    if(checkoutNow){
-      closeModal('artwork');
-      openCart();
-    }
+    if(checkoutNow){ closeModal('artwork'); openCart(); }
   }
-  function openCart(){
-    renderCart();
-    document.getElementById('cartQrBox').classList.remove('active');
-    openModal('cart');
-  }
+  function openCart(){ renderCart(); document.getElementById('cartQrBox').classList.remove('active'); openModal('cart'); }
   function renderCart(){
     const wrap = document.getElementById('cartItemsWrap');
     if(!cartItems.length){
-      wrap.innerHTML = '<div class="cart-empty">Giỏ hàng của bạn đang trống.</div>';
-      document.getElementById('cartTotalWrap').style.display = 'none';
-      document.getElementById('cartCheckoutBtn').style.display = 'none';
-      return;
+      wrap.innerHTML = '<div class="cart-empty">Giỏ hàng trống.</div>';
+      document.getElementById('cartTotalWrap').style.display = 'none'; document.getElementById('cartCheckoutBtn').style.display = 'none'; return;
     }
     wrap.innerHTML = cartItems.map((c,i) => `
-      <div class="cart-item">
-        <div><div class="cart-item-name">${c.label}</div><div class="cart-item-meta">${c.artist}</div></div>
-        <div style="display:flex; align-items:center; gap:16px;">
-          <span class="cart-item-price">${fmtVND(c.price)}</span>
-          <button class="cart-item-remove hover-target" onclick="removeCartItem(${i})">✕</button>
-        </div>
-      </div>
+      <div class="cart-item"><div><div class="cart-item-name">${c.label}</div><div class="cart-item-meta">${c.artist}</div></div>
+      <div style="display:flex; align-items:center; gap:16px;"><span class="cart-item-price">${fmtVND(c.price)}</span>
+      <button class="cart-item-remove hover-target" onclick="removeCartItem(${i})">✕</button></div></div>
     `).join('');
     const total = cartItems.reduce((s,c) => s + c.price, 0);
     document.getElementById('cartTotal').textContent = fmtVND(total);
-    document.getElementById('cartTotalWrap').style.display = 'flex';
-    document.getElementById('cartCheckoutBtn').style.display = 'block';
+    document.getElementById('cartTotalWrap').style.display = 'flex'; document.getElementById('cartCheckoutBtn').style.display = 'block';
   }
-  function removeCartItem(i){
-    cartItems.splice(i,1);
-    document.getElementById('cartCount').textContent = cartItems.length;
-    renderCart();
-  }
+  function removeCartItem(i){ cartItems.splice(i,1); document.getElementById('cartCount').textContent = cartItems.length; renderCart(); }
   function confirmCartCheckout(){
     const total = cartItems.reduce((s,c) => s + c.price, 0);
     document.getElementById('cartQrAmount').textContent = fmtVND(total);
@@ -1528,62 +1416,38 @@
     document.getElementById('cartQrBox').classList.add('active');
   }
 
-  // ============================================================
-  //  5) ĐẶT CHỖ WORKSHOP
-  // ============================================================
-  let currentWorkshop = null;
-  let wsQty = 1;
-
   function renderWorkshopList(){
     document.getElementById('workshopList').innerHTML = workshopsData.map(w => `
       <div class="workshop-row">
         <div class="workshop-name">${w.name}</div>
         <div><div class="workshop-meta-label">Lịch trình</div><div class="workshop-meta-value">${w.schedule}</div></div>
         <div><div class="workshop-meta-label">Địa điểm</div><div class="workshop-meta-value">${w.venue}</div></div>
-        <div class="workshop-action-col">
-          <div class="workshop-price">${fmtVND(w.price)} / vé</div>
-          <button class="btn-outline hover-target" style="margin-top:10px;" onclick="openWorkshopBooking(${w.id})">Đặt chỗ</button>
-        </div>
-      </div>
-    `).join('');
+        <div class="workshop-action-col"><div class="workshop-price">${fmtVND(w.price)} / vé</div><button class="btn-outline hover-target" style="margin-top:10px;" onclick="openWorkshopBooking(${w.id})">Đặt chỗ</button></div>
+      </div>`).join('');
   }
+  let currentWorkshop = null; let wsQty = 1;
   function openWorkshopBooking(id){
-    currentWorkshop = workshopsData.find(w => w.id === id);
-    wsQty = 1;
+    currentWorkshop = workshopsData.find(w => w.id === id); wsQty = 1;
     document.getElementById('wsModalTitle').textContent = currentWorkshop.name;
     document.getElementById('wsModalMeta').textContent = `${currentWorkshop.schedule} · Tại ${currentWorkshop.venue}`;
     document.getElementById('wsDrinkOptions').innerHTML = drinkChoices.map((d,i) => `<button type="button" class="drink-chip ${i===0?'active':''}" onclick="selectWsDrink(this)">${d}</button>`).join('');
-    document.getElementById('wsQrBox').classList.remove('active');
-    document.getElementById('wsQty').textContent = wsQty;
-    updateWsTotal();
-    openModal('workshopBooking');
+    document.getElementById('wsQrBox').classList.remove('active'); document.getElementById('wsQty').textContent = wsQty;
+    updateWsTotal(); openModal('workshopBooking');
   }
-  function changeQty(delta){
-    wsQty = Math.min(10, Math.max(1, wsQty + delta));
-    document.getElementById('wsQty').textContent = wsQty;
-    updateWsTotal();
-  }
-  function selectWsDrink(el){
-    el.parentElement.querySelectorAll('.drink-chip').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-  }
-  function updateWsTotal(){
-    document.getElementById('wsTotal').textContent = fmtVND(currentWorkshop.price * wsQty);
-  }
+  function changeQty(delta){ wsQty = Math.min(10, Math.max(1, wsQty + delta)); document.getElementById('wsQty').textContent = wsQty; updateWsTotal(); }
+  function selectWsDrink(el){ el.parentElement.querySelectorAll('.drink-chip').forEach(c => c.classList.remove('active')); el.classList.add('active'); }
+  function updateWsTotal(){ document.getElementById('wsTotal').textContent = fmtVND(currentWorkshop.price * wsQty); }
   function confirmWorkshopBooking(){
-    const total = currentWorkshop.price * wsQty;
-    document.getElementById('wsQrAmount').textContent = fmtVND(total);
+    document.getElementById('wsQrAmount').textContent = fmtVND(currentWorkshop.price * wsQty);
     document.getElementById('wsQrSyntax').textContent = 'ARTBRIDGE WS ' + Math.floor(Math.random()*90000+10000);
     document.getElementById('wsQrBox').classList.add('active');
   }
 
-  // ============================================================
-  //  6) TRIỂN LÃM TRỰC TUYẾN (VIRTUAL GALLERY)
-  // ============================================================
+  // Virtual Gallery (Cập nhật dùng image)
   function renderVirtualGrid(){
     document.getElementById('virtualGrid').innerHTML = virtualPieces.map(p => `
       <div class="virtual-tile">
-        <div class="work-visual" style="background:${p.gradient};"></div>
+        <div class="work-visual" style="background-image: url('${p.image}');"></div>
         <div class="virtual-tile-label">
           <div class="virtual-tile-artist">${p.artist}</div>
           <div class="virtual-tile-name">${p.title}</div>
@@ -1594,7 +1458,7 @@
   function openVirtualRoom(){
     document.getElementById('vrRoom').innerHTML = virtualPieces.map(p => `
       <div class="vr-tile">
-        <div class="work-visual" style="background:${p.gradient};"></div>
+        <div class="work-visual" style="background-image: url('${p.image}');"></div>
         <div class="vr-tile-label">
           <div class="virtual-tile-artist">${p.artist}</div>
           <div class="virtual-tile-name">${p.title}</div>
@@ -1604,14 +1468,9 @@
     document.getElementById('vr-overlay').classList.add('active');
     refreshScrollLock();
   }
-  function closeVirtualRoom(){
-    document.getElementById('vr-overlay').classList.remove('active');
-    refreshScrollLock();
-  }
+  function closeVirtualRoom(){ document.getElementById('vr-overlay').classList.remove('active'); refreshScrollLock(); }
 
-  // ============================================================
-  //  KHỞI TẠO + Gắn hiệu ứng con trỏ cho các phần tử được render động
-  // ============================================================
+  // Init
   renderArtworkGrid();
   renderSpaceList();
   renderWorkshopList();
@@ -1628,6 +1487,43 @@
   new MutationObserver(() => {
     document.querySelectorAll('.hover-target, .hover-work').forEach(bindCursorFor);
   }).observe(document.body, { childList: true, subtree: true });
+
+  // === XỬ LÝ CLICK MENU (THANH DOCK) KÉO XUỐNG CÁC KHÔNG GIAN ===
+  document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      
+      // Xử lý nút quay về đầu trang (Logo) hoặc các nút có href="#" (như Giỏ hàng, Tham gia)
+      if (targetId === '#') {
+        if (this.classList.contains('nav-logo')) {
+          e.preventDefault();
+          if (lenis && !document.documentElement.classList.contains('lenis-stopped')) {
+            lenis.scrollTo(0, { duration: 1.5 });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }
+        return;
+      }
+      
+      // Tìm Không Gian tương ứng với link và cuộn tới đó
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        
+        if (lenis && !document.documentElement.classList.contains('lenis-stopped')) {
+          // Dùng tính năng cuộn mượt của thư viện Lenis
+          lenis.scrollTo(targetElement, { 
+            duration: 1.5, 
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) 
+          });
+        } else {
+          // Trình duyệt cuộn mặc định nếu Lenis bị lỗi
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
 </script>
 </body>
 </html>
